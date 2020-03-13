@@ -1,0 +1,58 @@
+// color
+$primary: #07a0aa;
+//width
+$centerListWidth: 980px;
+// height
+$headHeight: 70px;
+$headLineHeight: 5px;
+$controlHeight: 53px;
+// size
+$base-font-size: 1rem;
+$base-space-size: 1rem;
+$font-sizes: (
+  xs: 0.8333,//10px
+  sm: 1,//12px
+  md: 1.0833,//13px
+  lg: 1.1667,//14px
+  xl: 1.3333,//16px
+  xxl: 1.6667
+);
+$colors: (
+  primary: $primary,
+  black: #000,
+  grey: #999,
+  grey-1: #666,
+  white: #fff
+);
+$flex-jc: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around
+);
+$flex-ai: (
+  start: flex-start,
+  end: flex-end,
+  center: center
+);
+$space-types: (
+  m: margin,
+  p: padding
+);
+$space-dirs: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left
+);
+$space-sizes: (
+  0: 0,//0px
+  1: 0.25,//3px
+  2: 0.5,//6px
+  3: 1,//12px
+  4: 1.5,//18px
+  5: 2,//24px
+  6: 3,//36px
+  7: 4,//48px
+);

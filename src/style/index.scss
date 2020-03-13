@@ -1,0 +1,101 @@
+@import "./variables";
+.d-flex {
+  display: flex;
+}
+.flex-col{
+  flex-direction: column;
+}
+.flex-1{
+  flex: 1;
+}
+.sh-0 {
+  flex-shrink: 0;
+}
+.f-wrap {
+  flex-wrap: wrap;
+}
+.f-nowrap {
+  flex-wrap: nowrap;
+}
+.bs-b{
+  box-sizing: border-box;
+}
+.fw-b{
+  font-weight: bold;
+}
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@for $i from 1 through 10 {
+  .w-#{$i} {
+    width: (10% * $i);
+  }
+  .h-#{$i} {
+    height: (10% * $i);
+  }
+}
+@each $colorKey, $colorVal in $colors {
+  .text-#{$colorKey} {
+    color: $colorVal;
+  }
+  .bg-#{$colorKey} {
+    background-color: $colorVal;
+  }
+}
+@each $fsKey, $fsVal in $font-sizes {
+  .fs-#{$fsKey} {
+    font-size: $fsVal * $base-font-size;
+  }
+}
+@each $jcKey, $jcVal in $flex-jc {
+  .jc-#{$jcKey} {
+    justify-content: $jcVal;
+  }
+}
+@each $aiKey, $aiVal in $flex-ai {
+  .ai-#{$aiKey} {
+    align-items: $aiVal;
+  }
+}
+@each $typeKey, $typeVal in $space-types {
+  @each $sizeKey, $sizeVal in $space-sizes {
+    @each $dirKey, $dirVal in $space-dirs {
+      .#{$typeKey}#{$dirKey}-#{$sizeKey} {
+        #{$typeVal}-#{$dirVal}: $sizeVal * $base-space-size;
+      }
+    }
+    .#{$typeKey}x-#{$sizeVal} {
+      #{$typeVal}-left: $base-space-size * $sizeVal;
+      #{$typeVal}-right: $base-space-size * $sizeVal;
+    }
+    .#{$typeKey}y-#{$sizeVal} {
+      #{$typeVal}-top: $base-space-size * $sizeVal;
+      #{$typeVal}-bottom: $base-space-size * $sizeVal;
+    }
+    .#{$typeKey}-#{$sizeVal} {
+      #{$typeVal}: $sizeVal * $base-space-size;
+    }
+  }
+}
+@mixin listRightBorder {
+  border-right: #e8e8e8 1px solid;
+}
+@mixin circleRadius($width, $color) {
+  width: $width;
+  height: $width;
+  background-color: $color;
+  border-radius: 50%;
+}
+// @mixin doubleCircle($oW,$iW,$oC,$iC){
+//   @include circleRadius($oW,$oC);
+//   &:after{
+//     @include circleRadius($iW,$iC);
+//     display: inline-block;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+// }
