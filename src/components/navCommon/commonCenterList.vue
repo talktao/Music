@@ -12,9 +12,10 @@
 <script>
 export default {
   name: "",
-  data() {
+  data () {
     return {};
   }
+
 };
 </script>
 
