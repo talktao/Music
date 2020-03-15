@@ -10,19 +10,18 @@
       <div class="imgList d-flex jc-between f-wrap pt-4">
         <div class="imgItem everyDay mb-7">
           <calendar @click="handleRecommendResource(-1)" />
-          <div class="itemDsc1 fs-lg mt-2 mb-1" @click="handleRecommendResource(-1)">每日歌曲推荐</div>
+          <div class="itemDsc1 fs-lg mt-2 mb-1"
+               @click="handleRecommendResource(-1)">每日歌曲推荐</div>
           <div class="itemDsc2 mt-1 text-grey">根据你的口味生成，每天6:00更新</div>
         </div>
-        <div class="imgItem mb-7" v-for="(item,index) in list_individuation" :key="index">
-          <div
-            class="innerImg"
-            @click="handleRecommendResource(index)"
-            :style="{backgroundImage: 'url('+item.picUrl+')'}"
-          ></div>
-          <div
-            class="itemDsc1 fs-lg mt-2 mb-1"
-            @click="handleRecommendResource(index)"
-          >{{item.name}}</div>
+        <div class="imgItem mb-7"
+             v-for="(item,index) in list_individuation"
+             :key="index">
+          <div class="innerImg"
+               @click="handleRecommendResource(index,item.id)"
+               :style="{backgroundImage: 'url('+item.picUrl+')'}"></div>
+          <div class="itemDsc1 fs-lg mt-2 mb-1"
+               @click="handleRecommendResource(index,item.id)">{{item.name}}</div>
           <div class="itemDsc2 mt-1 text-grey">{{item.copywriter}}</div>
         </div>
       </div>
@@ -31,7 +30,8 @@
       <div class="info_mine w-10 bs-b d-flex flex-col">
         <div class="topInfo w-10 d-flex ai-center">
           <div class="avatar">
-            <img :src="userInfo.avatar" alt />
+            <img :src="userInfo.avatar"
+                 alt />
           </div>
           <div class="userInfo flex-1 ml-4 h-10 d-flex flex-col jc-between">
             <div class="nickname text-ellipsis fw-b fs-lg">{{userInfo.nickname}}</div>
@@ -40,20 +40,21 @@
               <i class="leval_i"></i>
             </div>
 
-            <div v-if="!userInfo.signInStatus" class="signIn d-flex" @click="handleSignIn">
+            <div v-if="!userInfo.signInStatus"
+                 class="signIn d-flex"
+                 @click="handleSignIn">
               <div class="signInI d-flex jc-center ai-center text-white fs-lg">签到</div>
             </div>
-            <div v-if="userInfo.signInStatus" class="signIn haveSignIn d-flex">
+            <div v-if="userInfo.signInStatus"
+                 class="signIn haveSignIn d-flex">
               <div class="signInI haveSignInI d-flex jc-center ai-center text-white fs-sm">已签到</div>
             </div>
           </div>
         </div>
         <div class="bottomInfo w-10 flex-1 d-flex ai-center w-10 mt-4">
-          <div
-            v-for="(item,index) in bottomInfoList"
-            :key="index"
-            class="numDetail h-10 d-flex flex-col jc-center text-grey-1"
-          >
+          <div v-for="(item,index) in bottomInfoList"
+               :key="index"
+               class="numDetail h-10 d-flex flex-col jc-center text-grey-1">
             <div class="count fs-xxl">{{item.count}}</div>
             <div class="coutCitle">{{item.title}}</div>
           </div>
@@ -74,11 +75,11 @@ export default {
   components: {
     calendar
   },
-  created() {
+  created () {
     this.getRecommendResource();
     this.getUserDetail();
   },
-  data() {
+  data () {
     return {
       list_individuation: [],
       userInfo: {},
@@ -86,12 +87,15 @@ export default {
     };
   },
   methods: {
-    handleRecommendResource(index) {
+    handleRecommendResource (index, itemId) {
       if (index == -1) {
         this.$router.push("/taste");
+      } else {
+        // console.log(itemId)
+        this.$router.push('/csonglist/' + itemId)
       }
     },
-    async getUserDetail() {
+    async getUserDetail () {
       try {
         const userDetail = await saveUserDetail();
         this.signInStatus = userDetail.pcSign;
@@ -107,9 +111,9 @@ export default {
           { title: "粉丝", count: userDetail.profile.followeds }
         ];
         this.$forceUpdate();
-      } catch (err) {}
+      } catch (err) { }
     },
-    async handleSignIn() {
+    async handleSignIn () {
       dailySignin({ type: 1 }).then(async res => {
         await this.$alert("签到成功，获取2点经验", {
           type: "success",
@@ -122,11 +126,11 @@ export default {
         this.$forceUpdate();
       });
     },
-    async getRecommendResource() {
+    async getRecommendResource () {
       try {
         const res = (await getRecommendResource()).data.recommend.slice(0, 3);
         this.list_individuation = res;
-      } catch (err) {}
+      } catch (err) { }
     }
   }
 };
